@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ElementUI from 'element-ui';
-import './components';
+import generateComponent from './components';
 import * as Utils from './utils';
 import { permissionService } from './services';
 
@@ -116,6 +116,7 @@ const config = {
     edit_url: '',
   },
   ckeditor: {
+    use: true,
     editorConfig: new Function,
     contentsCss: [],
   },
@@ -132,6 +133,8 @@ export default function install(Vue, options = {}) {
   Vue.prototype.$appConfig = config;
   Vue.prototype.$get = _.get;
   _.merge(Utils.fly.config, config.request)
+
+  generateComponent();
 
   _.forEach(Utils, (value, key) => Vue.prototype[`$${key}`] = value);
 }
